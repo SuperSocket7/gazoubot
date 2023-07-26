@@ -25,7 +25,6 @@ def imgChoice():
     r = requests.post(uploadurl, headers=header, json=data)
     result = r.json()
     rnd = random.randint(0, len(result))
-    print(len(result))
     imgId = result[rnd]['id']
     return imgId
 
