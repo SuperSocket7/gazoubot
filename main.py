@@ -10,11 +10,8 @@ load_dotenv()
 token = os.getenv('Token')
 instance = os.getenv('instance')
 
-uploadurl = f"https://{instance}/api/drive/files"
-noteurl = f"https://{instance}/api/notes/create"
-header = {
-    'Content-Type': 'application/json'
-}
+filesUrl = f"https://{instance}/api/drive/files"
+noteUrl = f"https://{instance}/api/notes/create"
 data = {
     'i': token,
     'limit': 100
@@ -22,7 +19,7 @@ data = {
 
 
 def imgChoice():
-    r = requests.post(uploadurl, headers=header, json=data)
+    r = requests.post(filesUrl, headers={'Content-Type': 'application/json'}, json=data)
     result = r.json()
     rnd = random.randint(0, len(result))
     imgId = result[rnd]['id']
@@ -35,10 +32,10 @@ while True:
             'i': token,
             'mediaIds': [imgChoice()]
         }
-        r = requests.post(noteurl, headers=header, json=notedata)
+        r = requests.post(noteUrl, headers={'Content-Type': 'application/json'}, json=notedata)
         result = r.json()
         print(f"posted: https://{instance}/notes/{result['createdNote']['id']}")
         continue
     else:
-        time.sleep(10)
+        time.sleep(1)
         continue
