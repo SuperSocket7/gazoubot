@@ -41,5 +41,4 @@ while True:
         time.sleep(60 * 60)
         continue
     else:
-        time.sleep(60)
         continue
