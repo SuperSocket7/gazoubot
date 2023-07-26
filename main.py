@@ -38,7 +38,7 @@ while True:
         r = requests.post(noteurl, headers=header, json=notedata)
         result = r.json()
         print(f"posted: https://{instance}/notes/{result['createdNote']['id']}")
-        time.sleep(60 * 60)
         continue
     else:
+        time.sleep(10)
         continue
