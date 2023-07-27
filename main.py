@@ -9,6 +9,7 @@ load_dotenv()
 
 token = os.getenv('Token')
 instance = os.getenv('instance')
+icon = os.getenv('icon')
 
 filesUrl = f"https://{instance}/api/drive/files"
 noteUrl = f"https://{instance}/api/notes/create"
@@ -21,9 +22,15 @@ data = {
 def imgChoice():
     r = requests.post(filesUrl, headers={'Content-Type': 'application/json'}, json=data)
     result = r.json()
-    rnd = random.randint(0, len(result))
-    imgId = result[rnd]['id']
+    while True:
+        rnd = random.randint(0, len(result))
+        if result[rnd]['name'] == icon:
+            continue
+        else:
+            imgId = result[rnd]['id']
+            break
     return imgId
+
 
 
 while True:
