@@ -1,6 +1,6 @@
 import requests
 import random
-import time
+import time as t
 import os
 from datetime import datetime
 from dotenv import load_dotenv
@@ -28,13 +28,15 @@ def imgChoice():
             continue
         else:
             imgId = result[rnd]['id']
-            break
-    return imgId
+            return imgId
 
 
-
+# ループ部分、TMKありがと
+prevTime = 0
 while True:
-    if datetime.now().strftime("%M%S") == "0000":
+    nInterval = 10
+    time = int(datetime.now().strftime("%M")) * 60 + int(datetime.now().strftime("%S"))
+    if prevTime > time:
         notedata = {
             'i': token,
             'mediaIds': [imgChoice()]
@@ -42,7 +44,6 @@ while True:
         r = requests.post(noteUrl, headers={'Content-Type': 'application/json'}, json=notedata)
         result = r.json()
         print(f"posted: https://{instance}/notes/{result['createdNote']['id']}")
-        continue
-    else:
-        time.sleep(1)
-        continue
+    prevTime = time
+    t.sleep(nInterval)
+    continue

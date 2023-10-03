@@ -9,3 +9,5 @@ Token="YourToken" //設定から作れるアクセストークンも可
 instance="msky.nekokawa.net" //インスタンスのアドレス。
 icon="Edfcv6Cn_400x400.jpg" //アイコンのファイル名、アイコンが間違えてノートされるのを防ぎます
 ```
+このボットはこのプログラムが使われています。
+[まちカドまぞく画像bot](https://msky.nekokawa.net/@syamisyamibot)
