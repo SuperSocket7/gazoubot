@@ -13,21 +13,26 @@ icon = os.getenv('icon')
 
 filesUrl = f"https://{instance}/api/drive/files"
 noteUrl = f"https://{instance}/api/notes/create"
-data = {
-    'i': token,
-    'limit': 100
-}
 
 
 def imgChoice():
-    r = requests.post(filesUrl, headers={'Content-Type': 'application/json'}, json=data)
-    result = r.json()
+    r = requests.post(filesUrl, headers={'Content-Type': 'application/json'}, json={'i': token, 'limit': 100})
+    dicFiles = r.json()
+    tmpFiles = dicFiles
     while True:
-        rnd = random.randint(0, len(result))
-        if result[rnd]['name'] == icon:
+        if len(tmpFiles) == 100:
+            r = requests.post(filesUrl, headers={'Content-Type': 'application/json'}, json={'i': token, 'limit': 100, 'untilId': tmpFiles[99]['id']})
+            tmpFiles = r.json()
+            dicFiles += r.json()
+        else:
+            break
+    while True:
+        rnd = random.randint(0, len(dicFiles))
+        if dicFiles[rnd]['name'] == icon:
+            del dicFiles[rnd]
             continue
         else:
-            imgId = result[rnd]['id']
+            imgId = dicFiles[rnd]['id']
             return imgId
 
 
@@ -41,7 +46,11 @@ while True:
             'i': token,
             'mediaIds': [imgChoice()]
         }
-        r = requests.post(noteUrl, headers={'Content-Type': 'application/json'}, json=notedata)
+        try:
+            r = requests.post(noteUrl, headers={'Content-Type': 'application/json'}, json=notedata)
+        except requests.Timeout:
+            print(f"error: サーバーに接続できませんでした")
+            continue
         result = r.json()
         print(f"posted: https://{instance}/notes/{result['createdNote']['id']}")
     prevTime = time
