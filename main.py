@@ -27,7 +27,7 @@ def imgChoice():
         else:
             break
     while True:
-        rnd = random.randint(0, len(dicFiles))
+        rnd = random.randint(0, len(dicFiles) - 1)
         if dicFiles[rnd]['name'] == icon:
             del dicFiles[rnd]
             continue
@@ -46,11 +46,7 @@ while True:
             'i': token,
             'mediaIds': [imgChoice()]
         }
-        try:
-            r = requests.post(noteUrl, headers={'Content-Type': 'application/json'}, json=notedata)
-        except requests.Timeout:
-            print(f"error: サーバーに接続できませんでした")
-            continue
+        r = requests.post(noteUrl, headers={'Content-Type': 'application/json'}, json=notedata)
         result = r.json()
         print(f"posted: https://{instance}/notes/{result['createdNote']['id']}")
     prevTime = time
