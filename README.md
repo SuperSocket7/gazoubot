@@ -10,5 +10,5 @@ instance="msky.nekokawa.net" //インスタンスのアドレス。
 icon="Edfcv6Cn_400x400.jpg" //アイコンのファイル名、アイコンが間違えてノートされるのを防ぎます
 ```
 このボットはこのプログラムが使われています。
-[まちカドまぞく画像bot](https://msky.nekokawa.net/@syamisyamibot)
-[狐画像bot](https://msky.nekokawa.net/@FoxBot)
+- [まちカドまぞく画像bot](https://msky.nekokawa.net/@syamisyamibot)
+- [狐画像bot](https://msky.nekokawa.net/@FoxBot)
